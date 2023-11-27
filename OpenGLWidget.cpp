@@ -23,12 +23,18 @@ void OpenGLWidget::initializeGL()
 
 	openglObject = new OpenGLObject;
 	float vertex[] = {
-	-0.5, -0.5, 0.0,
-	 0.5, -0.5, 0.0,
-	 0.0,  0.5, 0.0
+		 0.5f,  0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f
 	};
-
-	openglObject->updateBufferData(vertex, sizeof(vertex) / sizeof(float));
+	float index[] = {
+		0, 1, 3,
+		1, 2, 3
+	};
+	int vertexCount = sizeof(vertex) / sizeof(float);
+	int indexCount = sizeof(index) / sizeof(float);
+	openglObject->updateBufferData(vertex, vertexCount, index, indexCount);
 }
 
 void OpenGLWidget::resizeGL(int w, int h)
@@ -45,5 +51,5 @@ void OpenGLWidget::paintGL()
 	mShader->bind();
 
 	glBindVertexArray(openglObject->getVAO());
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
