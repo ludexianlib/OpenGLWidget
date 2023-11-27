@@ -1,4 +1,6 @@
 <RCC>
-    <qresource prefix="OpenGLWidget">
+    <qresource prefix="/">
+        <file>res/vertex.vsh</file>
+        <file>res/fragment.fsh</file>
     </qresource>
 </RCC>

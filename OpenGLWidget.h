@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include <QOpenGLWidget>
+#include <QOpenGLShaderProgram>
 #include <QOpenGLFunctions_3_3_Core>
 
 #include "OpenGLObject.h"
@@ -21,4 +22,5 @@ protected:
 
 private:
 	OpenGLObject *openglObject;
+	QOpenGLShaderProgram *mShader;
 };
