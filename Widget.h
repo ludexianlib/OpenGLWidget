@@ -1,12 +1,14 @@
 #pragma once
-#include <QWidget>
+#include <QMainWindow>
 #include "Object/OpenGLWidget.h"
 
-class Widget : public QWidget
+class Widget : public QMainWindow
 {
 public: 
 	Widget(QWidget *parent = nullptr);
+
 private:
-	OpenGLWidget *openglWidget;
+	OpenGLWidget *m_openglWidget;
+	QAction *m_lineMode;
 };
 

@@ -9,6 +9,12 @@ OpenGLWidget::~OpenGLWidget()
 {
 }
 
+void OpenGLWidget::lineDrawMode(bool open)
+{
+	d->m_lineMode = open;
+	update();
+}
+
 void OpenGLWidget::initializeGL()
 {
 	// 初始化Opengl函数
@@ -35,5 +41,6 @@ void OpenGLWidget::paintGL()
 	glBindVertexArray(d->m_vertexObj->m_VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);	// 线框模式
+	// 线框模式绘制
+	d->m_lineMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

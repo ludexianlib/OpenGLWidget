@@ -1,15 +1,31 @@
+#include <QMenuBar>
 #include <QHBoxLayout>
 #include "Widget.h"
 
-Widget::Widget(QWidget * parent)
+#ifndef STR
+#define STR(str) QObject::tr(u8 ## str)
+#endif // !STR
+
+Widget::Widget(QWidget * parent) : QMainWindow(parent)
 {
 	QHBoxLayout *layout = new QHBoxLayout;
+	QWidget *widget = new QWidget(this);
 
 	// 创建OpenglWidget
-	openglWidget = new OpenGLWidget(this);
-	layout->addWidget(openglWidget);
+	m_openglWidget = new OpenGLWidget(this);
 
+	// 菜单栏
+	QMenu *changedMode = menuBar()->addMenu(STR("切换"));
+	m_lineMode = changedMode->addAction(STR("线框模式"));
+	m_lineMode->setCheckable(true);
+	connect(m_lineMode, &QAction::triggered, [&]() {
+		m_openglWidget->lineDrawMode(m_lineMode->isChecked());
+	});
+
+	layout->addWidget(m_openglWidget);
 	layout->setMargin(0);
-	setLayout(layout);
+	widget->setLayout(layout);
+	
+	setCentralWidget(widget);
 	setMinimumSize(800, 600);
 }

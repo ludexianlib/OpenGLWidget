@@ -12,6 +12,8 @@ public:
     OpenGLWidget(QWidget *parent = nullptr);
     ~OpenGLWidget();
 
+	void lineDrawMode(bool open);
+
 protected:
 	void initializeGL() override;
 	void resizeGL(int w, int h) override;
