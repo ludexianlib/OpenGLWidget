@@ -1,6 +1,6 @@
 #pragma once
 #include <QWidget>
-#include "OpenGLWidget.h"
+#include "Object/OpenGLWidget.h"
 
 class Widget : public QWidget
 {

@@ -21,17 +21,14 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{975398f3-b07a-4d3c-8a5f-91d6715b3709}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="OpenGLWidget.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtMoc Include="OpenGLWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="OpenGLWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -40,16 +37,30 @@
     <ClCompile Include="Widget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGLObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="object\OpenGLWidget.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\VertexObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\OpenGLWidgetPrivate.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Widget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGLObject.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Object\VertexObject.h">
+      <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="Object\OpenGLWidgetPrivate.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="object\OpenGLWidget.h">
+      <Filter>Object</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>
