@@ -15,5 +15,4 @@ public:
 public:
 	uint m_VAO;
 	uint m_VBO;
-	uint m_EBO;
 };

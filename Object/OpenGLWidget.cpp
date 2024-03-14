@@ -22,9 +22,10 @@ void OpenGLWidget::initializeGL()
 
 	// ¶¥µã¡¢Æ¬¶Î×ÅÉ«Æ÷
 	d = QSharedPointer<OpenGLWidgetPrivate>(new OpenGLWidgetPrivate);
-	d->m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/res/fragment.vsh");
-	d->m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/fragment.fsh");
-	d->m_shader->link();
+	bool succeed = false;
+	succeed = d->m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/res/vertex.vsh");
+	succeed = d->m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/fragment.fsh");
+	succeed = d->m_shader->link();
 }
 
 void OpenGLWidget::resizeGL(int w, int h)
@@ -42,5 +43,5 @@ void OpenGLWidget::paintGL()
 
 	d->m_shader->bind();
 	glBindVertexArray(d->m_vertexObj->m_VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
