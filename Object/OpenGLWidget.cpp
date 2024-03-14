@@ -23,19 +23,9 @@ void OpenGLWidget::initializeGL()
 
 	// ¶¥µã¡¢Æ¬¶Î×ÅÉ«Æ÷
 	d = QSharedPointer<OpenGLWidgetPrivate>(new OpenGLWidgetPrivate);
-	d->m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/res/fragment.vsh");
-	d->m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/fragment.fsh");
-	d->m_shader->link();
-
-	d->m_timer = new QTimer(this);
-	connect(d->m_timer, &QTimer::timeout, [this]() {
-		static int i = 0;
-		if (i++ > 360)
-			i = 0;
-		d->m_colorVec = QVector4D(0, sin(3.14159 / 180.0 * i), 0, 1);
-		update();
-	});
-	d->m_timer->start(20);
+	qDebug() << d->m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/res/vertex.vsh");
+	qDebug() << d->m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/fragment.fsh");
+	qDebug() << d->m_shader->link();
 }
 
 void OpenGLWidget::resizeGL(int w, int h)
@@ -52,8 +42,6 @@ void OpenGLWidget::paintGL()
 	d->m_lineMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	d->m_shader->bind();
-	d->m_shader->setUniformValue("outColor", d->m_colorVec);
-
 	glBindVertexArray(d->m_vertexObj->m_VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 }

@@ -1,10 +1,9 @@
 #version 330 core
 
+in vec3 vertexColor;
 out vec4 FragColor;
-
-uniform vec4 outColor;	// 全局变量
 
 void main() 
 {
-    FragColor = outColor;
+    FragColor = vec4(vertexColor, 1.0);
 }
