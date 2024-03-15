@@ -48,9 +48,11 @@ void OpenGLWidget::paintGL()
 	d->m_shader->setUniformValue("smileTexture", 1);
 	d->m_textureObj->m_smileTexture->bind(1);
 
-	QMatrix4x4 transform;
-	transform.rotate(45, 0, 0, 1);
-	d->m_shader->setUniformValue("transform", transform);
+	QMatrix4x4 model, view, projection;
+	model.rotate(-45, 1, 0, 0);
+	view.translate(0, 0, -3);
+	projection.perspective(45, width() / height(), 0.1, 100);
+	d->m_shader->setUniformValue("transform", projection * view * model);
 
 	glBindVertexArray(d->m_vertexObj->m_VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
