@@ -19,6 +19,7 @@ public:
 
 	bool m_lineMode = false;		// 是否以线框模式绘制
 
+	int m_rotateAngle = 0;
 	QVector4D m_colorVec;
 	QTimer* m_timer = nullptr;
 };

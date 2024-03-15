@@ -26,6 +26,19 @@ void OpenGLWidget::initializeGL()
 	qDebug() << d->m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/res/vertex.vsh");
 	qDebug() << d->m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/fragment.fsh");
 	qDebug() << d->m_shader->link();
+
+	// ÆôÓÃZ»º³å
+	glEnable(GL_DEPTH_TEST);
+
+	d->m_timer = new QTimer(this);
+	connect(d->m_timer, &QTimer::timeout, [&]() {
+		static int i = 0;
+		if (i++ > 360)
+			i = 0;
+		d->m_rotateAngle = i;
+		update();
+	});
+	d->m_timer->start(20);
 }
 
 void OpenGLWidget::resizeGL(int w, int h)
@@ -49,11 +62,11 @@ void OpenGLWidget::paintGL()
 	d->m_textureObj->m_smileTexture->bind(1);
 
 	QMatrix4x4 model, view, projection;
-	model.rotate(-45, 1, 0, 0);
+	model.rotate(d->m_rotateAngle, 1, 0, 0);
 	view.translate(0, 0, -3);
 	projection.perspective(45, width() / height(), 0.1, 100);
 	d->m_shader->setUniformValue("transform", projection * view * model);
 
 	glBindVertexArray(d->m_vertexObj->m_VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
