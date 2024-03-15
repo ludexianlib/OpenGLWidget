@@ -10,12 +10,13 @@ VertexObject::VertexObject()
 	glGenBuffers(1, &m_VBO);
 	glGenBuffers(1, &m_EBO);
 
+	// 位置坐标原点在中心 纹理坐标原点在左下
 	float vertices[] = {
-		// 位置				// 颜色
-		 0.5f,  0.5f, 0.0f, 1, 0, 0,	// 右上
-		 0.5f, -0.5f, 0.0f, 0, 1, 0,	// 右下
-		-0.5f, -0.5f, 0.0f, 0, 0, 1,	// 左下
-		-0.5f,  0.5f, 0.0f, 0, 1, 0		// 左上
+		// 位置				// 颜色  // 纹理
+		 0.5f,  0.5f, 0.0f, 1, 0, 0, 1, 1,	// 右上
+		 0.5f, -0.5f, 0.0f, 0, 1, 0, 1, 0,	// 右下
+		-0.5f, -0.5f, 0.0f, 0, 0, 1, 0, 0,	// 左下
+		-0.5f,  0.5f, 0.0f, 0, 1, 0, 0, 1	// 左上
 	};
 	uint indices[] = {
 		0, 1, 3, // 第一个三角形
@@ -29,10 +30,12 @@ VertexObject::VertexObject()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);

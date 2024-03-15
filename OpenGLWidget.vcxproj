@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="object\OpenGLWidget.cpp" />
     <ClCompile Include="Object\OpenGLWidgetPrivate.cpp" />
+    <ClCompile Include="Object\TextureObject.cpp" />
     <ClCompile Include="Object\VertexObject.cpp" />
     <ClCompile Include="Widget.cpp" />
     <QtRcc Include="OpenGLWidget.qrc" />
@@ -98,6 +99,7 @@
   <ItemGroup>
     <QtMoc Include="object\OpenGLWidget.h" />
     <ClInclude Include="Object\OpenGLWidgetPrivate.h" />
+    <ClInclude Include="Object\TextureObject.h" />
     <ClInclude Include="Object\VertexObject.h" />
     <ClInclude Include="Widget.h" />
   </ItemGroup>

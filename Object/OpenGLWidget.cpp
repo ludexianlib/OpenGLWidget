@@ -42,6 +42,12 @@ void OpenGLWidget::paintGL()
 	d->m_lineMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	d->m_shader->bind();
+
+	d->m_shader->setUniformValue("outTexture", 0);
+	d->m_textureObj->m_texture->bind(0);
+	d->m_shader->setUniformValue("smileTexture", 1);
+	d->m_textureObj->m_smileTexture->bind(1);
+
 	glBindVertexArray(d->m_vertexObj->m_VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

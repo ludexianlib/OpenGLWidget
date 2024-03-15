@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>res/fragment.fsh</file>
         <file>res/vertex.vsh</file>
+        <file>res/images/woodbox.jpg</file>
+        <file>res/images/smile.png</file>
     </qresource>
 </RCC>

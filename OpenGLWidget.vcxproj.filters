@@ -46,6 +46,9 @@
     <ClCompile Include="Object\OpenGLWidgetPrivate.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="Object\TextureObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Widget.h">
@@ -55,6 +58,9 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Object\OpenGLWidgetPrivate.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\TextureObject.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>

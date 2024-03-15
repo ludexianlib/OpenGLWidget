@@ -4,6 +4,7 @@
 #include <QOpenGLShaderProgram>
 
 #include "VertexObject.h"
+#include "TextureObject.h"
 
 class OpenGLWidgetPrivate
 {
@@ -14,6 +15,7 @@ public:
 public:
 	QSharedPointer<QOpenGLShaderProgram> m_shader;
 	QSharedPointer<VertexObject> m_vertexObj;
+	QSharedPointer<TextureObject> m_textureObj;
 
 	bool m_lineMode = false;		// 是否以线框模式绘制
 
