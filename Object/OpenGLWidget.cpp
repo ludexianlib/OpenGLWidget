@@ -43,5 +43,5 @@ void OpenGLWidget::paintGL()
 
 	d->m_shader->bind();
 	glBindVertexArray(d->m_vertexObj->m_VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
