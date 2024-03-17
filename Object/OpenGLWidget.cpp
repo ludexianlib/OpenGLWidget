@@ -63,9 +63,13 @@ void OpenGLWidget::paintGL()
 
 	QMatrix4x4 model, view, projection;
 	model.rotate(d->m_rotateAngle, 1, 0, 0);
+	d->m_shader->setUniformValue("model", model);
+
 	view.translate(0, 0, -3);
+	d->m_shader->setUniformValue("view", view);
+
 	projection.perspective(45, width() / height(), 0.1, 100);
-	d->m_shader->setUniformValue("transform", projection * view * model);
+	d->m_shader->setUniformValue("projection", projection);
 
 	glBindVertexArray(d->m_vertexObj->m_VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
