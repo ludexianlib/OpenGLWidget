@@ -1,5 +1,6 @@
 #pragma once
 #include <QTimer>
+#include <QVector3D>
 #include <QSharedPointer>
 #include <QOpenGLShaderProgram>
 
@@ -21,5 +22,6 @@ public:
 
 	int m_rotateAngle = 0;
 	QVector4D m_colorVec;
+	QVector3D m_cameraPos;
 	QTimer* m_timer = nullptr;
 };

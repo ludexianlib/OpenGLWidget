@@ -36,6 +36,10 @@ void OpenGLWidget::initializeGL()
 		if (i++ > 360)
 			i = 0;
 		d->m_rotateAngle = i;
+		double radius = 10;
+		double sinC = sin(3.14159 / 180.0 * i) * 10;
+		double cosC = cos(3.14159 / 180.0 * i) * 10;
+		d->m_cameraPos = QVector3D(sinC, 0, cosC);
 		update();
 	});
 	d->m_timer->start(20);
@@ -65,12 +69,18 @@ void OpenGLWidget::paintGL()
 	model.rotate(d->m_rotateAngle, 1, 0, 0);
 	d->m_shader->setUniformValue("model", model);
 
-	view.translate(0, 0, -3);
+	// lookAt矩阵 1.相机位置 2.观察位置 3.上向量
+	view.lookAt(d->m_cameraPos, QVector3D(0, 0, 0), QVector3D(0, 1, 0));
 	d->m_shader->setUniformValue("view", view);
 
 	projection.perspective(45, width() / height(), 0.1, 100);
 	d->m_shader->setUniformValue("projection", projection);
 
 	glBindVertexArray(d->m_vertexObj->m_VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	model = QMatrix4x4();
+	model.translate(0.7, 0.5, 0);
+	d->m_shader->setUniformValue("model", model);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
