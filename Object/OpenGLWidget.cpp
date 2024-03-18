@@ -1,9 +1,11 @@
 #include <QDateTime>
+#include <QKeyEvent>
 #include "OpenGLWidget.h"
 
 OpenGLWidget::OpenGLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
+	setFocusPolicy(Qt::StrongFocus);
 }
 
 OpenGLWidget::~OpenGLWidget()
@@ -36,10 +38,6 @@ void OpenGLWidget::initializeGL()
 		if (i++ > 360)
 			i = 0;
 		d->m_rotateAngle = i;
-		double radius = 10;
-		double sinC = sin(3.14159 / 180.0 * i) * 10;
-		double cosC = cos(3.14159 / 180.0 * i) * 10;
-		d->m_cameraPos = QVector3D(sinC, 0, cosC);
 		update();
 	});
 	d->m_timer->start(20);
@@ -69,17 +67,29 @@ void OpenGLWidget::paintGL()
 	model.rotate(d->m_rotateAngle, 1, 0, 0);
 	d->m_shader->setUniformValue("model", model);
 
-	// lookAt矩阵 1.相机位置 2.观察位置 3.上向量
-	view.lookAt(d->m_cameraPos, QVector3D(0, 0, 0), QVector3D(0, 1, 0));
+	// lookAt矩阵 m_cameraFront表示摄像机一直指向正前方
+	view.lookAt(d->m_cameraPos, d->m_cameraPos + d->m_cameraFront, d->m_cameraUp);
 	d->m_shader->setUniformValue("view", view);
 
 	projection.perspective(45, width() / height(), 0.1, 100);
 	d->m_shader->setUniformValue("projection", projection);
-
 	d->m_vertexObj->drawObject();
 
 	model = QMatrix4x4();
 	model.translate(0.7, 0.5, 0);
 	d->m_shader->setUniformValue("model", model);
 	d->m_vertexObj->drawObject();
+}
+
+void OpenGLWidget::keyPressEvent(QKeyEvent* event)
+{
+	if (event->key() == Qt::Key_Down)
+		d->m_cameraPos -= d->m_cameraFront;
+	else if (event->key() == Qt::Key_Up)
+		d->m_cameraPos += d->m_cameraFront;
+	else if (event->key() == Qt::Key_Left)
+		d->m_cameraPos -= QVector3D::crossProduct(d->m_cameraFront, d->m_cameraUp).normalized();
+	else if (event->key() == Qt::Key_Right)
+		d->m_cameraPos += QVector3D::crossProduct(d->m_cameraFront, d->m_cameraUp).normalized();
+	return QWidget::keyPressEvent(event);
 }

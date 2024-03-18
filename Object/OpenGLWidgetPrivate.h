@@ -22,6 +22,10 @@ public:
 
 	int m_rotateAngle = 0;
 	QVector4D m_colorVec;
-	QVector3D m_cameraPos;
+
+	QVector3D m_cameraPos{0, 0, 3};
+	QVector3D m_cameraFront{0, 0, -1};
+	QVector3D m_cameraUp{0, 1, 0};
+
 	QTimer* m_timer = nullptr;
 };
