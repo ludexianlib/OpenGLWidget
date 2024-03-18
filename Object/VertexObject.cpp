@@ -76,3 +76,10 @@ VertexObject::~VertexObject()
 	glDeleteVertexArrays(1, &m_VAO);
 	glDeleteBuffers(1, &m_VBO);
 }
+
+void VertexObject::drawObject()
+{
+    glBindVertexArray(m_VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glBindVertexArray(0);
+}

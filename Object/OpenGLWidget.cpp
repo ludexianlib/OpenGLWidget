@@ -76,11 +76,10 @@ void OpenGLWidget::paintGL()
 	projection.perspective(45, width() / height(), 0.1, 100);
 	d->m_shader->setUniformValue("projection", projection);
 
-	glBindVertexArray(d->m_vertexObj->m_VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	d->m_vertexObj->drawObject();
 
 	model = QMatrix4x4();
 	model.translate(0.7, 0.5, 0);
 	d->m_shader->setUniformValue("model", model);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	d->m_vertexObj->drawObject();
 }
