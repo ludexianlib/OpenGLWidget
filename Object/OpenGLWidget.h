@@ -13,6 +13,7 @@ public:
     ~OpenGLWidget();
 
 	void lineDrawMode(bool open);
+	QPointF pixelPosToViewPos(const QPoint& pos);
 
 protected:
 	void initializeGL() override;
@@ -20,6 +21,8 @@ protected:
 	void paintGL() override;
 
 	void keyPressEvent(QKeyEvent* event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
 
 private:
 	QSharedPointer<OpenGLWidgetPrivate> d;

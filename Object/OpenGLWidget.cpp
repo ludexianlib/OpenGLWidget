@@ -31,16 +31,6 @@ void OpenGLWidget::initializeGL()
 
 	// 启用Z缓冲
 	glEnable(GL_DEPTH_TEST);
-
-	d->m_timer = new QTimer(this);
-	connect(d->m_timer, &QTimer::timeout, [&]() {
-		static int i = 0;
-		if (i++ > 360)
-			i = 0;
-		d->m_rotateAngle = i;
-		update();
-	});
-	d->m_timer->start(20);
 }
 
 void OpenGLWidget::resizeGL(int w, int h)
@@ -64,7 +54,7 @@ void OpenGLWidget::paintGL()
 	d->m_textureObj->m_smileTexture->bind(1);
 
 	QMatrix4x4 model, view, projection;
-	model.rotate(d->m_rotateAngle, 1, 0, 0);
+	model.rotate(d->m_quaternion);
 	d->m_shader->setUniformValue("model", model);
 
 	// lookAt矩阵 m_cameraFront表示摄像机一直指向正前方
@@ -81,6 +71,13 @@ void OpenGLWidget::paintGL()
 	d->m_vertexObj->drawObject();
 }
 
+QPointF OpenGLWidget::pixelPosToViewPos(const QPoint& pos)
+{
+	double x = 2.0 * (float)pos.x() / width() - 1.0;
+	double y = 1.0 - 2.0 * (float)pos.y() / height();
+	return QPointF(x, y);
+}
+
 void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 {
 	if (event->key() == Qt::Key_Down)
@@ -91,5 +88,35 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 		d->m_cameraPos -= QVector3D::crossProduct(d->m_cameraFront, d->m_cameraUp).normalized();
 	else if (event->key() == Qt::Key_Right)
 		d->m_cameraPos += QVector3D::crossProduct(d->m_cameraFront, d->m_cameraUp).normalized();
+	update();
 	return QWidget::keyPressEvent(event);
+}
+
+void OpenGLWidget::mousePressEvent(QMouseEvent* event)
+{
+	if (event->button() != Qt::LeftButton)
+		return QWidget::mousePressEvent(event);
+	d->m_lastPos = event->pos();
+}
+
+void OpenGLWidget::mouseMoveEvent(QMouseEvent* event)
+{
+	// 物体旋转
+	QPointF lastPos = pixelPosToViewPos(d->m_lastPos);
+	QVector3D lastPos3D = QVector3D(lastPos.x(), lastPos.y(), 0);
+	float sqrZ = 1 - QVector3D::dotProduct(lastPos3D, lastPos3D);
+	sqrZ > 0 ? lastPos3D.setZ(sqrt(sqrZ)) : lastPos3D.normalize();
+
+	QPointF p = pixelPosToViewPos(event->pos());
+	QVector3D currentPos3D = QVector3D(p.x(), p.y(), 0);
+	sqrZ = 1 - QVector3D::dotProduct(currentPos3D, currentPos3D);
+	sqrZ > 0 ? currentPos3D.setZ(sqrt(sqrZ)) : currentPos3D.normalize();
+
+	QVector3D axis = QVector3D::crossProduct(lastPos3D, currentPos3D);
+	float angle = asin(axis.length()) * (180 / 3.14159) * 1.2; // 弧度转角度 * 转动速度
+	axis.normalize();
+	d->m_quaternion = QQuaternion::fromAxisAndAngle(axis, angle) * d->m_quaternion;
+
+	d->m_lastPos = event->pos();
+	update();
 }
