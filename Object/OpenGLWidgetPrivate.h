@@ -30,6 +30,9 @@ public:
 	// 鼠标旋转事件
 	QPoint m_lastPos;
 	QQuaternion m_quaternion;
+	
+	// 鼠标缩放视角
+	double m_fov = 45.0;
 
 	QTimer* m_timer = nullptr;
 };

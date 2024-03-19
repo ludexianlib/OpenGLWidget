@@ -61,7 +61,7 @@ void OpenGLWidget::paintGL()
 	view.lookAt(d->m_cameraPos, d->m_cameraPos + d->m_cameraFront, d->m_cameraUp);
 	d->m_shader->setUniformValue("view", view);
 
-	projection.perspective(45, width() / height(), 0.1, 100);
+	projection.perspective(d->m_fov, width() / height(), 0.1, 100);
 	d->m_shader->setUniformValue("projection", projection);
 	d->m_vertexObj->drawObject();
 
@@ -118,5 +118,16 @@ void OpenGLWidget::mouseMoveEvent(QMouseEvent* event)
 	d->m_quaternion = QQuaternion::fromAxisAndAngle(axis, angle) * d->m_quaternion;
 
 	d->m_lastPos = event->pos();
+	update();
+}
+
+void OpenGLWidget::wheelEvent(QWheelEvent* event)
+{
+	if (d->m_fov >= 1.0 || d->m_fov <= 60.0)
+		d->m_fov -= event->delta() * 0.1;
+	if (d->m_fov < 1)
+		d->m_fov = 1;
+	if (d->m_fov > 60)
+		d->m_fov = 60;
 	update();
 }
