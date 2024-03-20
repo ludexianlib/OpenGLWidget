@@ -13,9 +13,8 @@ public:
 	~VertexObject();
 
 	void drawObject();
-
 public:
-	uint m_VAO;
-	uint m_VBO;
-	uint m_EBO;
+	uint m_VAO = 0;
+	uint m_VBO = 0;
+	uint m_EBO = 0;
 };

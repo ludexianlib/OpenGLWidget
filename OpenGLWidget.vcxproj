@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\LightObject.cpp" />
     <ClCompile Include="object\OpenGLWidget.cpp" />
     <ClCompile Include="Object\OpenGLWidgetPrivate.cpp" />
     <ClCompile Include="Object\TextureObject.cpp" />
@@ -98,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="object\OpenGLWidget.h" />
+    <ClInclude Include="Object\LightObject.h" />
     <ClInclude Include="Object\OpenGLWidgetPrivate.h" />
     <ClInclude Include="Object\TextureObject.h" />
     <ClInclude Include="Object\VertexObject.h" />

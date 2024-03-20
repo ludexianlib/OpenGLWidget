@@ -29,6 +29,10 @@ void OpenGLWidget::initializeGL()
 	qDebug() << d->m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/fragment.fsh");
 	qDebug() << d->m_shader->link();
 
+	qDebug() << d->m_lightShader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/res/light.vsh");
+	qDebug() << d->m_lightShader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/light.fsh");
+	qDebug() << d->m_lightShader->link();
+
 	// 启用Z缓冲
 	glEnable(GL_DEPTH_TEST);
 }
@@ -40,18 +44,15 @@ void OpenGLWidget::resizeGL(int w, int h)
 void OpenGLWidget::paintGL()
 {
 	// 设置窗口颜色
-	glClearColor(0.1f, 0.5f, 0.5f, 0.5f);
+	glClearColor(0.1, 0.1, 0.1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// 线框模式绘制
 	d->m_lineMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	d->m_shader->bind();
-
-	d->m_shader->setUniformValue("outTexture", 0);
-	d->m_textureObj->m_texture->bind(0);
-	d->m_shader->setUniformValue("smileTexture", 1);
-	d->m_textureObj->m_smileTexture->bind(1);
+	d->m_shader->setUniformValue("objectColor", 1, 0.5, 0.31);
+	d->m_shader->setUniformValue("lightColor", 1, 1, 1);
 
 	QMatrix4x4 model, view, projection;
 	model.rotate(d->m_quaternion);
@@ -65,10 +66,14 @@ void OpenGLWidget::paintGL()
 	d->m_shader->setUniformValue("projection", projection);
 	d->m_vertexObj->drawObject();
 
+	// 灯光
+	d->m_lightShader->bind();
+	d->m_lightShader->setUniformValue("projection", projection);
+	d->m_lightShader->setUniformValue("view", view);
 	model = QMatrix4x4();
-	model.translate(0.7, 0.5, 0);
-	d->m_shader->setUniformValue("model", model);
-	d->m_vertexObj->drawObject();
+	model.translate(1, 0.7, -3);
+	d->m_lightShader->setUniformValue("model", model);
+	d->m_lightObj->drawObject();
 }
 
 QPointF OpenGLWidget::pixelPosToViewPos(const QPoint& pos)

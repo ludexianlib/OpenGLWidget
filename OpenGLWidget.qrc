@@ -4,5 +4,7 @@
         <file>res/vertex.vsh</file>
         <file>res/images/woodbox.jpg</file>
         <file>res/images/smile.png</file>
+        <file>res/light.fsh</file>
+        <file>res/light.vsh</file>
     </qresource>
 </RCC>
