@@ -51,8 +51,10 @@ void OpenGLWidget::paintGL()
 	d->m_lineMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	d->m_shader->bind();
+	QVector3D lightPos = QVector3D(1.2, 1, 2);
 	d->m_shader->setUniformValue("objectColor", 1, 0.5, 0.31);
 	d->m_shader->setUniformValue("lightColor", 1, 1, 1);
+	d->m_shader->setUniformValue("lightPos", lightPos);
 
 	QMatrix4x4 model, view, projection;
 	model.rotate(d->m_quaternion);
@@ -71,15 +73,16 @@ void OpenGLWidget::paintGL()
 	d->m_lightShader->setUniformValue("projection", projection);
 	d->m_lightShader->setUniformValue("view", view);
 	model = QMatrix4x4();
-	model.translate(1, 0.7, -3);
+	model.translate(lightPos);
+	model.scale(0.2);
 	d->m_lightShader->setUniformValue("model", model);
 	d->m_lightObj->drawObject();
 }
 
 QPointF OpenGLWidget::pixelPosToViewPos(const QPoint& pos)
 {
-	double x = 2.0 * (float)pos.x() / width() - 1.0;
-	double y = 1.0 - 2.0 * (float)pos.y() / height();
+	double x = 2.0 * (float)pos.x() / width() - 1.0;	//   2x / w - 1
+	double y = 1.0 - 2.0 * (float)pos.y() / height();	// -(2y / h - 1)
 	return QPointF(x, y);
 }
 
