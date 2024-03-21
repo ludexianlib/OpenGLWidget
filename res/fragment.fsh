@@ -13,6 +13,9 @@ uniform vec3 lightPos;
 in vec3 Normal;
 in vec3 FragPos;
 
+// 镜面反射 观察（相机）位置
+uniform vec3 viewPos;
+
 void main() 
 {
     // 环境光照
@@ -25,6 +28,13 @@ void main()
     float diff = max(dot(norm, lightDir), 0.0);     // 两个向量如果大于90度为负数 取0
     vec3 diffuse = diff * lightColor;
 
-    vec3 result = (ambient + diffuse) * objectColor;
+    // 镜面反射
+    float specularStrength = 0.5;
+    vec3 viewDir = normalize(viewPos - FragPos); // 观察向量
+    vec3 reflectDir = reflect(-lightDir, norm);  // 第一个参数是从光源指向片段位置的向量，对lightDir取反即可
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+    vec3 specular = specularStrength * spec * lightColor;
+
+    vec3 result = (ambient + diffuse + specular) * objectColor;
     FragColor = vec4(result, 1.0);
 }

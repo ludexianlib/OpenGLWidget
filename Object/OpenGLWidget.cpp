@@ -55,6 +55,7 @@ void OpenGLWidget::paintGL()
 	d->m_shader->setUniformValue("objectColor", 1, 0.5, 0.31);
 	d->m_shader->setUniformValue("lightColor", 1, 1, 1);
 	d->m_shader->setUniformValue("lightPos", lightPos);
+	d->m_shader->setUniformValue("viewPos", d->m_cameraPos);
 
 	QMatrix4x4 model, view, projection;
 	model.rotate(d->m_quaternion);
