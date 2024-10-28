@@ -10,11 +10,14 @@ OpenGLWidget::OpenGLWidget(QWidget *parent)
 
 OpenGLWidget::~OpenGLWidget()
 {
+	for (const auto& m : m_meshes)
+		delete m;
+	m_meshes.clear();
 }
 
 void OpenGLWidget::lineDrawMode(bool open)
 {
-	d->m_lineMode = open;
+	m_lineMode = open;
 	update();
 }
 
@@ -23,7 +26,13 @@ void OpenGLWidget::initializeGL()
 	// 初始化Opengl函数
 	initializeOpenGLFunctions();
 
+	Mesh* mesh = new Mesh();
+	mesh->init();
+	mesh->compileShader(QString(":/res/Mesh.vsh"), QString(":/res/Mesh.fsh"));
+	m_meshes.append(mesh);
+
 	// 顶点、片段着色器
+#if 0
 	d = QSharedPointer<OpenGLWidgetPrivate>(new OpenGLWidgetPrivate);
 	qDebug() << d->m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/res/vertex.vsh");
 	qDebug() << d->m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/fragment.fsh");
@@ -33,6 +42,7 @@ void OpenGLWidget::initializeGL()
 	qDebug() << d->m_lightShader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/light.fsh");
 	qDebug() << d->m_lightShader->link();
 
+#endif
 	// 启用Z缓冲
 	glEnable(GL_DEPTH_TEST);
 }
@@ -48,9 +58,15 @@ void OpenGLWidget::paintGL()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// 线框模式绘制
-	GLenum type = d->m_lineMode ? GL_LINE : GL_FILL;
+	GLenum type = m_lineMode ? GL_LINE : GL_FILL;
 	glPolygonMode(GL_FRONT_AND_BACK, type);
 
+	for (const auto& m : m_meshes)
+	{
+		m->draw();
+	}
+
+#if 0
 	d->m_shader->bind();
 	QVector3D lightPos = QVector3D(1.2, 1, 2);
 	d->m_shader->setUniformValue("objectColor", 1, 0.5, 0.31);
@@ -79,6 +95,7 @@ void OpenGLWidget::paintGL()
 	model.scale(0.2);
 	d->m_lightShader->setUniformValue("model", model);
 	d->m_lightObj->drawObject();
+#endif
 }
 
 QPointF OpenGLWidget::pixelPosToViewPos(const QPoint& pos)
@@ -104,13 +121,16 @@ void OpenGLWidget::keyPressEvent(QKeyEvent* event)
 
 void OpenGLWidget::mousePressEvent(QMouseEvent* event)
 {
+#if 0
 	if (event->button() != Qt::LeftButton)
 		return QWidget::mousePressEvent(event);
 	d->m_lastPos = event->pos();
+#endif
 }
 
 void OpenGLWidget::mouseMoveEvent(QMouseEvent* event)
 {
+#if 0
 	// 物体旋转
 	QPointF lastPos = pixelPosToViewPos(d->m_lastPos);
 	QVector3D lastPos3D = QVector3D(lastPos.x(), lastPos.y(), 0);
@@ -129,10 +149,12 @@ void OpenGLWidget::mouseMoveEvent(QMouseEvent* event)
 
 	d->m_lastPos = event->pos();
 	update();
+#endif
 }
 
 void OpenGLWidget::wheelEvent(QWheelEvent* event)
 {
+#if 0
 	if (d->m_fov >= 1.0 || d->m_fov <= 60.0)
 		d->m_fov -= event->delta() * 0.1;
 	if (d->m_fov < 1)
@@ -140,4 +162,5 @@ void OpenGLWidget::wheelEvent(QWheelEvent* event)
 	if (d->m_fov > 60)
 		d->m_fov = 60;
 	update();
+#endif
 }

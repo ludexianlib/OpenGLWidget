@@ -3,6 +3,7 @@
 #include <QOpenGLWidget>
 
 #include "OpenGLWidgetPrivate.h"
+#include "VertexObject/Mesh.h"
 
 class OpenGLWidget : public QOpenGLWidget, public QOpenGLFunctions_3_3_Core
 {
@@ -27,4 +28,7 @@ protected:
 
 private:
 	QSharedPointer<OpenGLWidgetPrivate> d;
+
+	QList<Mesh*> m_meshes;
+	bool m_lineMode = false;
 };

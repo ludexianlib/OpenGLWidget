@@ -6,5 +6,7 @@
         <file>res/images/smile.png</file>
         <file>res/light.fsh</file>
         <file>res/light.vsh</file>
+        <file>res/Mesh.fsh</file>
+        <file>res/Mesh.vsh</file>
     </qresource>
 </RCC>

@@ -2,36 +2,36 @@
 
 out vec4 FragColor;
 
-// ¹âÕÕÑÕÉ« ÎïÌåÑÕÉ«
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É« ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 uniform vec3 objectColor;
-uniform vec3 lightColor;
+uniform vec3 lightColor;Â·
 
-// ¹âÔ´Î»ÖÃ
+// ï¿½ï¿½Ô´Î»ï¿½ï¿½
 uniform vec3 lightPos;
 
-// Âş·´Éä·¨ÏòÁ¿ ÎïÌåÎ»ÖÃ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ä·¨ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 in vec3 Normal;
 in vec3 FragPos;
 
-// ¾µÃæ·´Éä ¹Û²ì£¨Ïà»ú£©Î»ÖÃ
+// ï¿½ï¿½ï¿½æ·´ï¿½ï¿½ ï¿½Û²ì£¨ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 uniform vec3 viewPos;
 
 void main() 
 {
-    // »·¾³¹âÕÕ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     float ambientStrength = 0.1;
     vec3 ambient = ambientStrength * lightColor;
 
-    // Âş·´Éä
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(lightPos - FragPos);  // ¹âµÄ·½ÏòÏòÁ¿ÊÇ¹âÔ´Î»ÖÃÏòÁ¿ÓëÆ¬¶ÎÎ»ÖÃÏòÁ¿Ö®¼äµÄÏòÁ¿²î
-    float diff = max(dot(norm, lightDir), 0.0);     // Á½¸öÏòÁ¿Èç¹û´óÓÚ90¶ÈÎª¸ºÊı È¡0
+    vec3 lightDir = normalize(lightPos - FragPos);  // ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½Ô´Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    float diff = max(dot(norm, lightDir), 0.0);     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½90ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ È¡0
     vec3 diffuse = diff * lightColor;
 
-    // ¾µÃæ·´Éä
+    // ï¿½ï¿½ï¿½æ·´ï¿½ï¿½
     float specularStrength = 0.5;
-    vec3 viewDir = normalize(viewPos - FragPos); // ¹Û²ìÏòÁ¿
-    vec3 reflectDir = reflect(-lightDir, norm);  // µÚÒ»¸ö²ÎÊıÊÇ´Ó¹âÔ´Ö¸ÏòÆ¬¶ÎÎ»ÖÃµÄÏòÁ¿£¬¶ÔlightDirÈ¡·´¼´¿É
+    vec3 viewDir = normalize(viewPos - FragPos); // ï¿½Û²ï¿½ï¿½ï¿½ï¿½ï¿½
+    vec3 reflectDir = reflect(-lightDir, norm);  // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç´Ó¹ï¿½Ô´Ö¸ï¿½ï¿½Æ¬ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lightDirÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular = specularStrength * spec * lightColor;
 

@@ -61,6 +61,9 @@
     <ClCompile Include="VertexObject\PanelObject.cpp">
       <Filter>VertexObject</Filter>
     </ClCompile>
+    <ClCompile Include="VertexObject\Mesh.cpp">
+      <Filter>VertexObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Widget.h">
@@ -85,6 +88,9 @@
       <Filter>VertexObject</Filter>
     </ClInclude>
     <ClInclude Include="VertexObject\PanelObject.h">
+      <Filter>VertexObject</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexObject\Mesh.h">
       <Filter>VertexObject</Filter>
     </ClInclude>
   </ItemGroup>

@@ -94,6 +94,7 @@
     <ClCompile Include="Object\TextureObject.cpp" />
     <ClCompile Include="Object\VertexObject.cpp" />
     <ClCompile Include="VertexObject\BaseObject.cpp" />
+    <ClCompile Include="VertexObject\Mesh.cpp" />
     <ClCompile Include="VertexObject\PanelObject.cpp" />
     <ClCompile Include="Widget.cpp" />
     <QtRcc Include="OpenGLWidget.qrc" />
@@ -106,6 +107,7 @@
     <ClInclude Include="Object\TextureObject.h" />
     <ClInclude Include="Object\VertexObject.h" />
     <ClInclude Include="VertexObject\BaseObject.h" />
+    <ClInclude Include="VertexObject\Mesh.h" />
     <ClInclude Include="VertexObject\PanelObject.h" />
     <ClInclude Include="VertexObject\Vertexes.h" />
     <ClInclude Include="Widget.h" />

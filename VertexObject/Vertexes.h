@@ -47,14 +47,3 @@ struct Texture
 {
 	uint id = 0;	// 位置
 };
-
-/**
- * @brief  \网格对象
- * @param  \
- */
-struct Mesh
-{
-	std::vector<Vertex> vertexes;	// 坐标
-	std::vector<Texture> textures;	// 纹理
-	std::vector<uint> indices;		// 缓冲索引
-};
