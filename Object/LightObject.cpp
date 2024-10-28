@@ -1,6 +1,6 @@
 #include "LightObject.h"
 
-LightObject::LightObject()
+LightObject::LightObject() : QOpenGLFunctions_3_3_Core()
 {
     // ³õÊ¼»¯Openglº¯Êý
     initializeOpenGLFunctions();

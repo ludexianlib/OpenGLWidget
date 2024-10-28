@@ -13,25 +13,25 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{37E4836F-3464-49BB-9BF1-C5881E7D0826}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'">10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'">10.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'" Label="QtSettings">
-    <QtInstall>Qt 5.14.2 x86</QtInstall>
+    <QtInstall>5.9.9</QtInstall>
     <QtModules>core;gui;widgets;opengl</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -93,6 +93,8 @@
     <ClCompile Include="Object\OpenGLWidgetPrivate.cpp" />
     <ClCompile Include="Object\TextureObject.cpp" />
     <ClCompile Include="Object\VertexObject.cpp" />
+    <ClCompile Include="VertexObject\BaseObject.cpp" />
+    <ClCompile Include="VertexObject\PanelObject.cpp" />
     <ClCompile Include="Widget.cpp" />
     <QtRcc Include="OpenGLWidget.qrc" />
     <ClCompile Include="main.cpp" />
@@ -103,6 +105,9 @@
     <ClInclude Include="Object\OpenGLWidgetPrivate.h" />
     <ClInclude Include="Object\TextureObject.h" />
     <ClInclude Include="Object\VertexObject.h" />
+    <ClInclude Include="VertexObject\BaseObject.h" />
+    <ClInclude Include="VertexObject\PanelObject.h" />
+    <ClInclude Include="VertexObject\Vertexes.h" />
     <ClInclude Include="Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

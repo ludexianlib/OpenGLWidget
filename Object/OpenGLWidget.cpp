@@ -44,11 +44,12 @@ void OpenGLWidget::resizeGL(int w, int h)
 void OpenGLWidget::paintGL()
 {
 	// 设置窗口颜色
-	glClearColor(0.1, 0.1, 0.1, 1);
+	glClearColor(0.2, 0.3, 0.1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// 线框模式绘制
-	d->m_lineMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	GLenum type = d->m_lineMode ? GL_LINE : GL_FILL;
+	glPolygonMode(GL_FRONT_AND_BACK, type);
 
 	d->m_shader->bind();
 	QVector3D lightPos = QVector3D(1.2, 1, 2);

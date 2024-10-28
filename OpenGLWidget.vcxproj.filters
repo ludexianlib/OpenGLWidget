@@ -24,6 +24,9 @@
     <Filter Include="Object">
       <UniqueIdentifier>{975398f3-b07a-4d3c-8a5f-91d6715b3709}</UniqueIdentifier>
     </Filter>
+    <Filter Include="VertexObject">
+      <UniqueIdentifier>{d5b939a8-a080-4ebd-a23f-f8df51c4611f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="OpenGLWidget.qrc">
@@ -52,6 +55,12 @@
     <ClCompile Include="Object\LightObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="VertexObject\BaseObject.cpp">
+      <Filter>VertexObject</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexObject\PanelObject.cpp">
+      <Filter>VertexObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Widget.h">
@@ -68,6 +77,15 @@
     </ClInclude>
     <ClInclude Include="Object\LightObject.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexObject\Vertexes.h">
+      <Filter>VertexObject</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexObject\BaseObject.h">
+      <Filter>VertexObject</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexObject\PanelObject.h">
+      <Filter>VertexObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
